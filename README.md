@@ -4,6 +4,8 @@
 
 **Statut : vitrine technique.** Les dépôts de développement restent privés. Cette présentation décrit les composants et les choix d'architecture à un niveau permettant de comprendre le travail sans publier les implémentations propriétaires, données, prompts ou configurations internes.
 
+> **Technical review:** [Architecture evidence and limitations](AUDIT.md) — model output, validation and persistence.
+
 ## Deux projets complémentaires
 
 **LOCAL_AGENTS** explore l'orchestration de plusieurs agents spécialisés autour d'une mission : routage, délégation, contrôle, mémoire et exécution.
