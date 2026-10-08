@@ -8,6 +8,10 @@
 
 **Limites :** les suites exécutables et les données privées ne sont pas publiées ; il n'existe pas de benchmark public reproductible sur ces pages. Les évaluations par LLM exigent un protocole et ne constituent pas une vérité absolue.
 
+## Point de vérification exécutable : PROOF-01
+
+Une [reproduction pédagogique publique de l'erreur « 5 + 6 → 42 »](PROOF_01.md) fournit un script Python sans dépendances et neuf tests exécutés sur GitHub Actions. Elle permet d'examiner pourquoi une réponse cohérente avec un outil peut être fausse par rapport à la demande initiale. **Ce script est un nouvel exemple indépendant : il ne rejoue pas le code privé de LOCAL_AGENTS et ne valide pas ses résultats historiques.**
+
 **Trace d'audit :** `02 / VALIDATION / contrat identifié`
 
 **Étape suivante :** [03 — simulation et présentation](https://github.com/christophercrahay-cmyk/after-showcase/blob/main/AUDIT.md). Après la validation des données, comment isoler les règles du système de leur affichage ?
