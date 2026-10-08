@@ -4,6 +4,13 @@
 The historical case is described publicly, but the implementations below were
 written specifically for this showcase. Passing these tests only verifies the
 behaviour of this miniature reproduction.
+
+Related system boundary: a tool result can agree with an agent's answer
+without proving that the user's requested operation was performed.
+The same command-vs-observation distinction appears in the physical SYM
+robot prototype: sending an actuator command does not establish motion.
+Technical note and observable limits:
+https://github.com/christophercrahay-cmyk/Sym-showcase/blob/main/RETURN_CHANNEL.md
 """
 
 from __future__ import annotations
