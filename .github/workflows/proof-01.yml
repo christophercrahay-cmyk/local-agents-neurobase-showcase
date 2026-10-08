@@ -1,0 +1,28 @@
+name: PROOF-01 — public illustrative replay
+
+on:
+  push:
+    paths:
+      - "proof_01.py"
+      - "PROOF_01.md"
+      - ".github/workflows/proof-01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout this public showcase
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Reproduce illustrative false accept
+        run: python proof_01.py
+      - name: Run public miniature unit tests
+        run: python -m unittest proof_01 -v
