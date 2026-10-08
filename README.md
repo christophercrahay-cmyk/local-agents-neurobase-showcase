@@ -6,6 +6,8 @@
 
 > **Technical review:** [Architecture evidence and limitations](AUDIT.md) — model output, validation and persistence.
 
+**[Voir les extraits de code authentique et les consoles de tests sur le portfolio](https://christopher-crahay.vercel.app/work/local-agents)** — quatre captures de code réel, tests LOCAL_AGENTS sur le seul commit `136db6c` (266 réussis) et NEUROBASE sur `1f515df` (105 réussis). Les résultats ne valident ni l'arbre de travail en cours ni les systèmes privés dans leur ensemble.
+
 ## Exemples de code commentés
 
 [Consulter les exemples techniques](CODE_EXAMPLES.md) — extraits **illustratifs**, volontairement simplifiés, distincts du code privé. Ils montrent des frontières d'architecture et leurs limites, sans prétendre constituer une preuve de fonctionnement.
