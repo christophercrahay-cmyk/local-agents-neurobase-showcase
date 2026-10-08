@@ -74,3 +74,11 @@ outil correspond **à la demande d'origine**, plutôt qu'à la seule réponse
 produite ensuite par le modèle ?
 
 Cette question est plus importante que les couleurs d'un badge de tests.
+
+## Et si la réponse commandait un objet réel ?
+
+PROOF-01 vérifie une **réponse logicielle**. Le problème devient plus concret si
+la sortie d'un agent sert à commander un actionneur : qui constate alors
+l'action réellement accomplie, au lieu de faire confiance à l'ordre envoyé ?
+
+[Examiner ce cas côté robotique : canal retour de SYM](https://github.com/christophercrahay-cmyk/Sym-showcase/blob/main/RETURN_CHANNEL.md).
