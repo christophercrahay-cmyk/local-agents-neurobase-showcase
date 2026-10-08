@@ -6,6 +6,11 @@
 
 > **Technical review:** [Architecture evidence and limitations](AUDIT.md) — model output, validation and persistence.
 
+## Exemples de code commentés
+
+[Consulter les exemples techniques](CODE_EXAMPLES.md) — extraits **illustratifs**, volontairement simplifiés, distincts du code privé. Ils montrent des frontières d'architecture et leurs limites, sans prétendre constituer une preuve de fonctionnement.
+
+
 ## Deux projets complémentaires
 
 **LOCAL_AGENTS** explore l'orchestration de plusieurs agents spécialisés autour d'une mission : routage, délégation, contrôle, mémoire et exécution.
