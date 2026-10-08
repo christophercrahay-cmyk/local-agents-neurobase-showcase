@@ -222,3 +222,6 @@ Les métriques historiques ne sont volontairement pas mises en avant ici sans le
 
 **Christopher Crahay**  
 AI Builder — Intégrateur de systèmes IA
+
+
+<!-- audit-sequence: 02 | claims require evaluation; evaluation requires context -->
