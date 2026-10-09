@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Une démonstration interactive des limites de validation d'un agent IA, entre réponse logicielle et action physique.">
+  <title>PROOF-01 — Vérification des frontières</title>
+  <style>
+    :root{color-scheme:dark;--bg:#090f19;--panel:#111c2d;--surface:#162338;--border:#2c3b50;--text:#edf4fc;--muted:#9aaac0;--cyan:#80d2f2;--amber:#e9c188;--red:#ff929e;--green:#95d8b2;--radius:15px}
+    *{box-sizing:border-box}body{margin:0;font:16px/1.56 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 55% -40%,#1c3553 0,transparent 57%),var(--bg);color:var(--text)}
+    a{color:var(--cyan);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:#c3edff}.shell{max-width:870px;margin:auto;padding:32px 22px 80px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--border);padding-bottom:20px}.mark{letter-spacing:.13em;font-size:12px;font-weight:750;color:var(--cyan)}.subtle{font-size:12px;color:var(--muted)}
+    h1{font-size:clamp(29px,5vw,48px);letter-spacing:-.035em;line-height:1.13;font-weight:700;margin:44px 0 15px;max-width:740px}h2{font-size:clamp(21px,4vw,28px);letter-spacing:-.02em;line-height:1.3;margin:0 0 12px}p{max-width:700px}.lead{font-size:18px;color:#c2cedf;margin-bottom:32px}
+    .progress{display:flex;gap:8px;margin:26px 0 22px}.progress span{height:3px;flex:1;background:#24344c;border-radius:4px}.progress span.active{background:var(--cyan)}
+    .panel{border:1px solid var(--border);background:linear-gradient(145deg,#142137,#0e1727);border-radius:var(--radius);padding:clamp(19px,4vw,33px);box-shadow:0 12px 40px #0003;min-height:370px}
+    .eyebrow{color:var(--cyan);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:750;margin:0 0 13px}.support{color:var(--muted);font-size:14px;margin:7px 0 18px}.code{font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0b1321;color:#d5e4f5;padding:18px;border:1px solid #26374f;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;margin:20px 0}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.fact{background:#101b2d;padding:15px;border:1px solid #26374f;border-radius:10px}.fact-label{display:block;color:var(--muted);font-size:12px;margin-bottom:8px}.fact-value{font:600 19px ui-monospace,SFMono-Regular,Consolas,monospace}.result{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border:1px solid #2d3d54;background:#112035;border-radius:10px;padding:14px;margin:10px 0}.result strong{font-size:15px}.result small{display:block;color:var(--muted);margin-top:5px}.state{white-space:nowrap;font-size:12px;font-weight:750;border-radius:20px;padding:4px 9px;background:#2d405a;color:#bdd0eb}.state.bad{background:#412333;color:var(--red)}.state.good{background:#1d3b34;color:var(--green)}.state.unknown{background:#41382b;color:var(--amber)}
+    .button{appearance:none;border:1px solid #97e3fa;background:var(--cyan);color:#07111d;border-radius:9px;font-weight:750;font-size:14px;padding:13px 20px;cursor:pointer;min-height:44px}.button:hover{background:#bceaff}.button:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:4px}.secondary{background:transparent;color:var(--text);border-color:#47607e}.secondary:hover{background:#24374f}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;align-items:center}.hidden{display:none!important}.message{border:1px solid #386b7f;border-radius:12px;padding:25px 20px;background:linear-gradient(140deg,#15364b,#102233);margin:25px 0}.message q{display:block;font-size:clamp(23px,4.7vw,35px);font-weight:650;letter-spacing:-.02em;margin:14px 0}.message .stamp{color:var(--cyan);font-size:12px;letter-spacing:.12em}.links{display:flex;gap:16px;flex-wrap:wrap;margin-top:17px;font-size:14px}.notes{border-top:1px solid var(--border);padding-top:23px;margin-top:32px;color:var(--muted);font-size:12px}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:540px){.shell{padding:21px 16px 50px}header{align-items:flex-start;flex-direction:column}h1{margin-top:29px}.pair{grid-template-columns:1fr}.result{flex-wrap:wrap}.panel{min-height:0}.lead{font-size:16px}}
+    @media(prefers-reduced-motion:no-preference){.panel{animation:rise .23s ease-out}@keyframes rise{from{opacity:.55;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><div class="mark">SYSTEM BOUNDARY / 01</div><a href="https://github.com/christophercrahay-cmyk/local-agents-neurobase-showcase/blob/main/PROOF_01.md" rel="noopener noreferrer" target="_blank">Lire le cas et le code public ↗</a></header>
+    <main>
+      <h1>La réponse est correcte.<br>La mission ne l’est pas.</h1>
+      <p class="lead">Un vérificateur peut approuver une sortie d’outil tout en ignorant l’intention de départ. Parcourez ce cas réel documenté au moyen d'une <strong>miniature interactive indépendante</strong>, puis examinez la même frontière dans le monde physique.</p>
+      <div class="progress" aria-label="Progression : quatre écrans"><span id="bar0" class="active"></span><span id="bar1"></span><span id="bar2"></span><span id="bar3"></span></div>
+      <div id="region" aria-live="polite" aria-atomic="true">
+        <section class="panel" data-stage="0" aria-labelledby="title0">
+          <div class="eyebrow">01 — Demande contre exécution</div>
+          <h2 id="title0">Le problème de départ</h2>
+          <p class="support">Dans l’historique documenté de LOCAL_AGENTS, une réponse erronée a été acceptée par un ancien vérificateur. Les valeurs suivantes reprennent cette situation ; le code ci-dessous est une démonstration, pas le système privé.</p>
+          <div class="pair"><div class="fact"><span class="fact-label">Demande utilisateur</span><span class="fact-value">5 + 6</span></div><div class="fact"><span class="fact-label">Calcul exécuté par l’outil</span><span class="fact-value">6 × 7</span></div></div>
+          <div class="code">Résultat de l'outil : 42<br>Réponse de l'agent : 42</div>
+          <div class="actions"><button class="button" data-next="1">Examiner les règles de validation →</button></div>
+        </section>
+        <section class="panel hidden" data-stage="1" aria-labelledby="title1">
+          <div class="eyebrow">02 — Deux règles, deux conclusions</div>
+          <h2 id="title1">Un test vert ne suffit pas.</h2>
+          <p class="support">Le calcul est effectué localement dans votre navigateur. Ce rejeu JavaScript n’exécute pas le vérificateur privé ; la miniature Python et ses neuf tests sont consultables sur GitHub.</p>
+          <div class="code" id="arithmetic" aria-label="Calculs comparés">En attente de vérification…</div>
+          <div class="result"><div><strong>Ancienne règle illustrative</strong><small>Vérifie que la réponse correspond au résultat de l’outil.</small></div><span class="state" id="legacyState">En attente</span></div>
+          <div class="result"><div><strong>Règle illustrative renforcée</strong><small>Vérifie aussi que l’outil a réalisé l’opération demandée.</small></div><span class="state" id="guardedState">En attente</span></div>
+          <div class="actions"><button class="button" id="runCheck">Exécuter les deux vérifications</button><button class="button secondary hidden" id="toPhysical">Examiner une autre frontière →</button></div>
+        </section>
+        <section class="panel hidden" data-stage="2" aria-labelledby="title2">
+          <div class="eyebrow">03 — Du logiciel au monde physique</div>
+          <h2 id="title2">La commande n’est pas l’observation.</h2>
+          <p>Une commande envoyée à un robot ne prouve pas automatiquement qu’un mécanisme a bougé comme prévu. SYM illustre cette autre frontière de validation.</p>
+          <div class="result"><div><strong>Commande documentée</strong><small><code>JAW:ON</code> — exemple issu de l’architecture publiée de SYM. Aucune commande n’est envoyée depuis cette page.</small></div><span class="state">Documentée</span></div>
+          <div class="result"><div><strong>Retour matériel indépendant</strong><small>Cette démonstration ne recueille ni télémétrie, ni position d’actionneur. La vidéo publique permet une observation visuelle, sans mesure indépendante.</small></div><span class="state unknown">Non mesuré</span></div>
+          <div class="result"><div><strong>Conclusion vérifiable ici</strong><small>Impossible de confirmer le mouvement par une simple commande.</small></div><span class="state unknown">Indéterminé</span></div>
+          <div class="actions"><button class="button" data-next="3">Ouvrir le canal de retour →</button></div>
+        </section>
+        <section class="panel hidden" data-stage="3" aria-labelledby="title3">
+          <div class="eyebrow">04 — Canal de retour</div>
+          <h2 id="title3">Vous êtes allé jusqu’au bout.</h2>
+          <p class="support">La question était simple : distingue-t-on la réponse produite, l’opération exécutée et ce qui est réellement constaté ?</p>
+          <div class="message"><span class="stamp">MESSAGE DE L'ATELIER / SYM</span><q>SYM vous passe le bonjour.</q><span class="subtle">Message écrit pour cette expérience. Il ne s’agit pas d’une réponse générée en direct par le robot.</span></div>
+          <p>SYM est un prototype physique présenté publiquement. Vous pouvez examiner la démonstration et l’interview extérieure sans leur attribuer une portée supérieure à ce qu’elles montrent.</p>
+          <div class="links"><a href="https://christopher-crahay.vercel.app/work/sym" target="_blank" rel="noopener noreferrer">Voir SYM en vidéo ↗</a><a href="https://www.youtube.com/watch?v=6XJzIGO50cQ" target="_blank" rel="noopener noreferrer">Podcast Sona Production ↗</a><a href="https://github.com/christophercrahay-cmyk/Sym-showcase/blob/main/RETURN_CHANNEL.md" target="_blank" rel="noopener noreferrer">Lire la note technique ↗</a></div>
+          <div class="actions"><button class="button secondary" id="restart">Recommencer</button></div>
+        </section>
+      </div>
+    </main>
+    <footer class="notes">Démonstration pédagogique indépendante · aucun accès au robot, aucun envoi d’action · les contrôles sont purement locaux au navigateur. Ce parcours n’est pas une certification des projets ou une consigne d’évaluation de candidature.</footer>
+  </div>
+  <script>
+    (() => {
+      'use strict';
+      const sections = [...document.querySelectorAll('[data-stage]')];
+      const progress = [...document.querySelectorAll('.progress span')];
+      const runButton = document.querySelector('#runCheck');
+      const advanceButton = document.querySelector('#toPhysical');
+      function stage(number) {
+        if (!Number.isInteger(number) || number < 0 || number > 3) return;
+        for (const section of sections) section.classList.toggle('hidden', Number(section.dataset.stage) !== number);
+        progress.forEach((segment, index) => segment.classList.toggle('active', index <= number));
+        const title = document.querySelector(`#title${number}`);
+        if (title && number !== 0) { title.tabIndex = -1; title.focus({preventScroll:true}); }
+      }
+      for (const button of document.querySelectorAll('[data-next]')) {
+        button.addEventListener('click', () => stage(Number(button.dataset.next)));
+      }
+      runButton.addEventListener('click', () => {
+        const requested = 5 + 6;
+        const toolResult = 6 * 7;
+        const reported = 42;
+        const legacyAccepted = toolResult === reported;
+        const guardedAccepted = legacyAccepted && toolResult === requested;
+        document.querySelector('#arithmetic').textContent = `Demande : 5 + 6 = ${requested}\nOutil : 6 × 7 = ${toolResult}\nRéponse : ${reported}`;
+        const legacyState = document.querySelector('#legacyState');
+        legacyState.textContent = legacyAccepted ? 'Accepte à tort' : 'Refuse';
+        legacyState.className = legacyAccepted ? 'state bad' : 'state good';
+        const guardedState = document.querySelector('#guardedState');
+        guardedState.textContent = guardedAccepted ? 'Accepte' : 'Refuse à raison';
+        guardedState.className = guardedAccepted ? 'state bad' : 'state good';
+        runButton.disabled = true;
+        runButton.textContent = 'Vérification exécutée';
+        advanceButton.classList.remove('hidden');
+      });
+      advanceButton.addEventListener('click', () => stage(2));
+      document.querySelector('#restart').addEventListener('click', () => {
+        runButton.disabled = false;
+        runButton.textContent = 'Exécuter les deux vérifications';
+        advanceButton.classList.add('hidden');
+        document.querySelector('#arithmetic').textContent = 'En attente de vérification…';
+        for (const id of ['#legacyState', '#guardedState']) {
+          const node = document.querySelector(id);
+          node.textContent = 'En attente';
+          node.className = 'state';
+        }
+        stage(0);
+      });
+    })();
+  </script>
+</body>
+</html>
